@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gaussian Explorer</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Gaussian Explorer">
+  <meta name="author" content="George Gordon Roberts III">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Gaussian Explorer</h1>
+    <h2>Haven't you Always Wanted to Explore the Gaussian?</h2>
+    <p>George Gordon Roberts III<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>The normal distribution is found throughout nature and is without a doubt the most &quot;famous&quot; of all distributions.</p></li>
+<li><p>Fun Fact: If you take replicate measurements from any distribution, the replicate values will exhibit a normal distribution even if the distribution of the data set as a whole is from another distribution.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Exploring the Normal Distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>The normal distribution is also known as the Gaussian after Carl Friedrich Gauss.</p></li>
+<li><p>Specifying the Parameters to Gaussian Explorer</p>
+
+<ul>
+<li>It is defined by two parameters, mu and sigma which represent the mean and standard deviation respectively.</li>
+<li>To visualize the distribution, you will also need to specify the number of variates that you would like to see displayed as well as the number of bins that you would like the histogram to be broken into.</li>
+</ul></li>
+<li><p>Graphical Elements</p>
+
+<ul>
+<li>The mean is indicated by a blue line</li>
+<li>The 95% confidence region is indicated by red lines</li>
+<li>The height of the bars is scaled to 1.5 times the most frequent bin for aesthetic reasons.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Exploration Number 1 - The Standard Normal Distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The Standard Normal Distribution
+
+<ul>
+<li>The standard normal distribution is defined by mu = 0 and sigma = 1</li>
+<li>Enter these values in Gaussian Explorer along with appropriate numbers for variates and bins</li>
+<li>Your result should look something like the histogram below</li>
+</ul></li>
+</ul>
+
+<pre><code class="r">mu &lt;- 0
+variates &lt;- 1000
+sigma &lt;- 1
+bins &lt;- 20
+
+x &lt;- rnorm(variates, mu, sigma)
+height &lt;- max(table(cut(x, bins)))
+
+hist(rnorm(variates, mu, sigma), breaks = bins, xlab = &quot;Mean&quot;, main = &quot;Histogram of the Normal (Gaussian) Distribution&quot;)
+lower &lt;- qnorm(0.025, mu, sigma, lower = TRUE)
+upper &lt;- qnorm(0.975, mu, sigma, lower = TRUE)
+
+lines(c(lower, lower), c(0, 1.5 * height), col = &quot;red&quot;, lwd = 1)
+lines(c(upper, upper), c(0, 1.5 * height), col = &quot;red&quot;, lwd = 1)
+lines(c(mu, mu), c(0, 1.5 * height), col = &quot;blue&quot;, lwd = 1)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Exploration Number 2 - Effects of Binning</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Bin size can have (sometimes undesirable) effects on the shape of a distribution.
+
+<ul>
+<li>Set the bins to 500 </li>
+<li>You can leave the variates set to 1000</li>
+<li>Experiment with fewer than 500 bins. Note that the characteristic bell-shape begins to break down long before the number of bins reaches one half of the number of variates.</li>
+</ul></li>
+</ul>
+
+<h2>Exploration Number 3 - How Standardization Works</h2>
+
+<ul>
+<li>Any normal distribution can be &quot;standardized&quot; by subtracting the mean and dividng by the standard deviation.
+
+<ul>
+<li>Reset the mu to 0 and sigma to 1 if necessary</li>
+<li>Behold the standard normal distribution. If the distribution does not appear bell shaped, then increase the number of variates to 1000 and the number of bins to 20.</li>
+<li>Observe that the distribution can be shifted to the right (or left) by increasing (or decreasing) mu; by subtrating mu from a distribution, the distribution will be centred arond zero. The spread of the distribution can be increased or decreased by correspondingly increasing or decreasing sigma; divinding by sigma will scale the standard deviation to 1.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Exploring the Normal Distribution'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Exploration Number 1 - The Standard Normal Distribution'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Exploration Number 2 - Effects of Binning'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

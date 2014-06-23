@@ -1,0 +1,14 @@
+AppliedPredictiveModeling
+base
+caret
+datasets
+ElemStatLearn
+ggplot2
+graphics
+grDevices
+lattice
+methods
+pgmm
+slidify
+stats
+utils
